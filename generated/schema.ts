@@ -20,17 +20,17 @@ export class BucketDetail extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save BucketBid entity without an ID");
+    assert(id !== null, "Cannot save BucketDetail entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save BucketBid entity with non-string ID. " +
+      "Cannot save BucketDetail entity with non-string ID. " +
       'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("BucketBid", id.toString(), this);
+    store.set("BucketDetail", id.toString(), this);
   }
 
-  static load(id: string): ExampleEntity | null {
-    return store.get("ExampleEntity", id) as ExampleEntity | null;
+  static load(id: string): BucketDetail | null {
+    return store.get("BucketDetail", id) as BucketDetail | null;
   }
 
   get id(): string {
