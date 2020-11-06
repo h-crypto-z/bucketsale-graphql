@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: BucketSale
@@ -17,10 +17,10 @@ dataSources:
         - Exited
       abis:
         - name: BucketSale
-          file: ./abis/BucketSale.json
+          file: BucketSale\abis\BucketSale.json
       eventHandlers:
         - event: Entered(address,uint256,indexed address,uint256,uint256,indexed address,uint256)
           handler: handleEntered
         - event: Exited(uint256,indexed address,uint256)
           handler: handleExited
-      file: ./src/mapping.ts
+      file: BucketSale\BucketSale.wasm
