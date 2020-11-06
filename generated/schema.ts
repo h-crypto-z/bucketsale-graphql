@@ -12,7 +12,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class ExampleEntity extends Entity {
+export class BucketDetail extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -20,13 +20,13 @@ export class ExampleEntity extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save ExampleEntity entity without an ID");
+    assert(id !== null, "Cannot save BucketBid entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ExampleEntity entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
+      "Cannot save BucketBid entity with non-string ID. " +
+      'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ExampleEntity", id.toString(), this);
+    store.set("BucketBid", id.toString(), this);
   }
 
   static load(id: string): ExampleEntity | null {
@@ -42,30 +42,39 @@ export class ExampleEntity extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get count(): BigInt {
-    let value = this.get("count");
+  get bucketId(): BigInt {
+    let value = this.get("bucketId");
     return value.toBigInt();
   }
 
-  set count(value: BigInt) {
-    this.set("count", Value.fromBigInt(value));
+  set bucketId(value: BigInt) {
+    this.set("bucketId", Value.fromBigInt(value));
   }
 
-  get _sender(): Bytes {
-    let value = this.get("_sender");
+  get bidder(): Bytes {
+    let value = this.get("bidder");
     return value.toBytes();
   }
 
-  set _sender(value: Bytes) {
-    this.set("_sender", Value.fromBytes(value));
+  set bidder(value: Bytes) {
+    this.set("bidder", Value.fromBytes(value));
   }
 
-  get _bucketId(): BigInt {
-    let value = this.get("_bucketId");
+  get totalValue(): BigInt {
+    let value = this.get("totalValue");
     return value.toBigInt();
   }
 
-  set _bucketId(value: BigInt) {
-    this.set("_bucketId", Value.fromBigInt(value));
+  set totalValue(value: BigInt) {
+    this.set("totalValue", Value.fromBigInt(value));
+  }
+
+  get isEntry(): boolean {
+    let value = this.get("isEntry");
+    return value.toBoolean();
+  }
+
+  set isEntry(value: boolean) {
+    this.set("isEntry", Value.fromBoolean(value));
   }
 }

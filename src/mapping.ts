@@ -1,30 +1,17 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { BucketSale, Entered, Exited } from "../generated/BucketSale/BucketSale"
-import { ExampleEntity } from "../generated/schema"
+import { BucketDetail } from "../generated/schema"
 
 export function handleEntered(event: Entered): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (entity == null) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
+  let bucketDetail = new BucketDetail(event.transaction.hash.toHex())
 
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
+  bucketDetail.bucketId = event.params._bucketId
+  bucketDetail.bidder = event.params._sender
+  bucketDetail.totalValue = event.params._valueEntered
+  bucketDetail.isEntry = true
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity._sender = event.params._sender
-  entity._bucketId = event.params._bucketId
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
+  bucketDetail.save();
 
   // Note: If a handler doesn't require existing field values, it is faster
   // _not_ to load the entity from the store. Instead, create it fresh with
@@ -59,4 +46,14 @@ export function handleEntered(event: Entered): void {
   // - contract.treasury(...)
 }
 
-export function handleExited(event: Exited): void {}
+export function handleExited(event: Exited): void {
+
+  let bucketDetail = new BucketDetail(event.transaction.hash.toHex())
+
+  bucketDetail.bucketId = event.params._bucketId
+  bucketDetail.bidder = event.params._buyer
+  bucketDetail.totalValue = event.params._tokensExited
+  bucketDetail.isEntry = false
+
+  bucketDetail.save();
+}

@@ -1,6 +1,7 @@
-type ExampleEntity @entity {
+type BucketDetail @entity{
   id: ID!
-  count: BigInt!
-  _sender: Bytes! # address
-  _bucketId: BigInt! # uint256
+  bidder: Bytes!
+  bucketId: BigInt!
+  totalValue: BigInt!
+  isEntry: Boolean!
 }
