@@ -1,4 +1,6 @@
 specVersion: 0.0.2
+description: Graph for the $FRY Bucket Sale from Foundry DAO
+repository: https://github.com/h-crypto-z/bucketsale-graphql
 schema:
   file: ./schema.graphql
 dataSources:
